@@ -7,9 +7,8 @@
 ### Table of Contents
 
 - [Description](#description)
+- [Folder Structure](#folder-structure)
 - [How To Use](#how-to-use)
-- [References](#references)
-- [License](#license)
 - [Author Info](#author-info)
 
 ---
