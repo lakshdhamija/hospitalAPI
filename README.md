@@ -1,7 +1,5 @@
 # Server Side Hospital API
 
-![Project Image](project-image-url)
-
 > This is a server-side hospital API which can perform some basic tasks.
 
 ---
