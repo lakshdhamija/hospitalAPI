@@ -2,6 +2,8 @@ const express =  require('express');
 const path = require('path');
 const port = 8000;
 const db = require('./config/mongoose');
+const passport = require('passport');
+const passportJWT = require('./config/passport-jwt-strategy');
 
 const app = express();
 
