@@ -42,7 +42,7 @@ module.exports.register = function (req, res) {
                     });
                 }
                 return res.json(200, {
-                    message: 'Doctor has registered successfully!'
+                    message: 'Doctor has been registered successfully!'
                 });
             });
         } else { // if doctor exists then redirect to sign up page
