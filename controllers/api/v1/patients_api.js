@@ -48,7 +48,7 @@ module.exports.createReport = function (req, res) {
     req.body.doctorName = doctorName;
     req.body.patientName = patientName;
 
-    const report = Report.create(req.body, function(err, report){
+    const report = Report.create(req.body, function (err, report) {
         if (err) {
             console.log('Error: ', err)
             return res.json(500, {
@@ -60,4 +60,22 @@ module.exports.createReport = function (req, res) {
             info: report
         });
     });
+};
+
+module.exports.allReports = async function (req, res) {
+    try {
+        const report = await Report.find({ patientName: req.params.id }).populate('doctorName').populate('patientName');
+        return res.status(200).json({
+            message: 'All reports of patient displayed',
+            info: report
+        })
+    }
+    catch (err) {
+        if (err) {
+            console.log('Error: ', err);
+            return res.status(500).json({
+                message: 'Internal Server Error'
+            })
+        }
+    }
 };
