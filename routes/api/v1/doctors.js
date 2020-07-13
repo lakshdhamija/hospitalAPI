@@ -2,6 +2,6 @@ const express = require('express');
 const router = express.Router();
 const doctorsApi = require('../../../controllers/api/v1/doctors_api');
 
-// router.post('/create-session', usersApi.createSession);
+router.post('/register', doctorsApi.register);
 
 module.exports = router;
