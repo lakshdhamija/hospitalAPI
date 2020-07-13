@@ -1,4 +1,3 @@
-const Patient = require('../../../models/patient');
 const Report = require('../../../models/report');
 
 module.exports.getReports = function(req, res){

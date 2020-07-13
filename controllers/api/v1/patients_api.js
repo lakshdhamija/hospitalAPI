@@ -3,7 +3,7 @@ const Report = require('../../../models/report');
 const keys = require('../../../keys.json');
 const jwt = require('jsonwebtoken');
 
-module.exports.register = function (req, res) {
+module.exports.register = function (req, res) { // register controller for patients
     const doctorToken = req.headers.authorization;
     const token = doctorToken.split(' ');
     const original = jwt.verify(token[1], keys.secret); // token[1] is the payload
@@ -39,7 +39,7 @@ module.exports.register = function (req, res) {
     }).populate('doctorName');
 };
 
-module.exports.createReport = function (req, res) {
+module.exports.createReport = function (req, res) { // create report of patient
     const doctorToken = req.headers.authorization;
     const token = doctorToken.split(' ');
     const original = jwt.verify(token[1], keys.secret); // token[1] is the payload
@@ -62,7 +62,7 @@ module.exports.createReport = function (req, res) {
     });
 };
 
-module.exports.allReports = async function (req, res) {
+module.exports.allReports = async function (req, res) { // view all reports of patient
     try {
         const report = await Report.find({ patientName: req.params.id }).populate('doctorName').populate('patientName');
         return res.status(200).json({

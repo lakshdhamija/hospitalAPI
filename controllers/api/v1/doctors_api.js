@@ -3,7 +3,7 @@ const Doctor = require('../../../models/doctor');
 const jwt = require('jsonwebtoken');
 const keys = require('../../../keys.json');
 
-module.exports.login = async function(req, res){
+module.exports.login = async function(req, res){ // login controller for doctor
     try{
         let doctor = await Doctor.findOne({username: req.body.username});
         if(!doctor || doctor.password != req.body.password){
@@ -25,7 +25,7 @@ module.exports.login = async function(req, res){
     }
 }
 
-module.exports.register = function (req, res) {
+module.exports.register = function (req, res) { // register controller for doctor
     Doctor.findOne({ username: req.body.username }, function (err, doctor) {
         if (err) {
             console.log('Error:', err);

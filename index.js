@@ -5,14 +5,14 @@ const db = require('./config/mongoose');
 const passport = require('passport');
 const passportJWT = require('./config/passport-jwt-strategy');
 
-const app = express();
+const app = express(); 
 
 app.use(express.urlencoded());
 
 // use express router
-app.use('/', require('./routes'));
+app.use('/', require('./routes')); // redirect traffic to index.js in routes folder
 
-app.listen(port, function(err){
+app.listen(port, function(err){ // start server
     if(err){
         console.log("Error in runnung the server", err);
         return;
