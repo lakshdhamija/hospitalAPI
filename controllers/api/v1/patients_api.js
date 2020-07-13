@@ -1,5 +1,5 @@
 const Patient = require('../../../models/patient');
-// const Report = require('../../../models/report');
+const Report = require('../../../models/report');
 const keys = require('../../../keys.json');
 const jwt = require('jsonwebtoken');
 
@@ -28,7 +28,7 @@ module.exports.register = function (req, res) {
                     message: 'Patient Registered successfully',
                     info: patient
                 });
-            })
+            });
         }
         else {
             return res.json(200, {
@@ -39,28 +39,25 @@ module.exports.register = function (req, res) {
     }).populate('doctorName');
 };
 
-// module.exports.createReport = async function (req, res) {
-//     const doctorToken = req.headers.authorization;
-//     const token = doctorToken.split(' ');
-//     const original = jwt.verify(token[1], keys.secret); // token[1] is the payload
-//     try {
-//         let report = await Report.create({
-//             status: req.body.status,
-//             doctor: decoded._id,
-//             patient: req.params.id
-//         });
+module.exports.createReport = function (req, res) {
+    const doctorToken = req.headers.authorization;
+    const token = doctorToken.split(' ');
+    const original = jwt.verify(token[1], keys.secret); // token[1] is the payload
+    const doctorName = original._id;
+    const patientName = req.params.id;
+    req.body.doctorName = doctorName;
+    req.body.patientName = patientName;
 
-//         return res.status(200).json({
-//             message: 'New Report Generated!',
-//             details: report
-//         })
-//     }
-//     catch (err) {
-//         if (err) {
-//             console.log(`${err}`);
-//             return res.status(500).json({
-//                 message: 'Error Occured'
-//             })
-//         }
-//     }
-// };
+    const report = Report.create(req.body, function(err, report){
+        if (err) {
+            console.log('Error: ', err)
+            return res.json(500, {
+                message: "Error in creating Report"
+            });
+        }
+        return res.json(200, {
+            message: 'Patient\'s Report generated successfully',
+            info: report
+        });
+    });
+};
