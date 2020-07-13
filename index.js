@@ -1,6 +1,7 @@
 const path = require('path');
 const port = 8000;
 const http = require('http');
+const db = require('./config/mongoose');
 
 const server = http.createServer();
 server.listen(port, function(err){
