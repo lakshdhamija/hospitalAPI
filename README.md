@@ -32,10 +32,10 @@ This API can perform the following functions :-
 ---
 
 ## Folder Structure
-routes: Contains the api folder which contains routes for different api requests.
-controllers: Contains the controllers for doctor, patient and report.
-models: Contains the Schemas for Doctors, Patients and Reports
-config : Contains mongoose and passportJWT configuration files
+- routes: Contains the api folder which contains routes for different api requests.
+- controllers: Contains the controllers for doctor, patient and report.
+- models: Contains the Schemas for Doctors, Patients and Reports
+- config : Contains mongoose and passportJWT configuration files
 
 ## How To Use
 
