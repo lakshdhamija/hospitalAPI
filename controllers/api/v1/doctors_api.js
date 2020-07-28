@@ -15,7 +15,7 @@ module.exports.login = async function(req, res){ // login controller for doctor
             message: 'Sign in successful, here is your token, please keep it safe!',
             data: {
                 token: jwt.sign(doctor.toJSON(), keys.secret, {expiresIn: '7d'}) // doctor.toJSON() part will get encrypted. hospitalapi is encrypt key. Decrypt key in passport-jwt-strategy
-            }
+            } 
         });
     }catch(err){
         console.log(err);

@@ -44,7 +44,7 @@ This API can perform the following functions :-
 1. Clone or Download the Project
 2. Navigate to the folder using the terminal and run 'npm install'. This will install all the dependencies to your package. Make sure you have Node installed on your machine.
 3. Run 'npm start' to start the server 
-4. Refernce URL: 'localhost:8000'
+4. Reference URL: 'localhost:8000'
 
 #### API Routes
 

@@ -9,8 +9,8 @@ module.exports.register = function (req, res) { // register controller for patie
     const original = jwt.verify(token[1], keys.secret); // token[1] is the payload
     Patient.findOne({ phone: req.body.phone }, function (err, patient) {
         if (err) {
-            console.log('Error:', err);
-            return res.json(500, {
+            // console.log('Error:', err);
+            return res.status(500).json({
                 message: "Internal Server Error"
             });
         }
@@ -19,19 +19,19 @@ module.exports.register = function (req, res) { // register controller for patie
             req.body.doctorName = doctorName; // adding doctor id to body and it will be passed in req.body to Patient.create
             Patient.create(req.body, function (err, patient) {
                 if (err) {
-                    console.log('Error: ', err)
-                    return res.json(500, {
+                    // console.log('Error: ', err);
+                    return res.status(500).json({
                         message: "Error in creating Patient"
                     });
                 }
-                return res.json(200, {
+                return res.status(200).json({
                     message: 'Patient Registered successfully',
                     info: patient
                 });
             });
         }
         else {
-            return res.json(200, {
+            return res/status(200).json({
                 message: 'Already Registered!',
                 info: patient
             })
@@ -50,12 +50,12 @@ module.exports.createReport = function (req, res) { // create report of patient
 
     Report.create(req.body, function (err, report) {
         if (err) {
-            console.log('Error: ', err)
-            return res.json(500, {
+            // console.log('Error: ', err)
+            return res.status(500).json({
                 message: "Error in creating Report"
             });
         }
-        return res.json(200, {
+        return res.status(200).json({
             message: 'Patient\'s Report generated successfully',
             info: report
         });
@@ -72,7 +72,7 @@ module.exports.allReports = async function (req, res) { // view all reports of p
     }
     catch (err) {
         if (err) {
-            console.log('Error: ', err);
+            // console.log('Error: ', err);
             return res.status(500).json({
                 message: 'Internal Server Error'
             });
