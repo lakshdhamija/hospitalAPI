@@ -50,9 +50,9 @@ module.exports.createReport = function (req, res) { // create report of patient
 
     Report.create(req.body, function (err, report) {
         if (err) {
-            // console.log('Error: ', err)
+            // console.log('Error: ', err);
             return res.status(500).json({
-                message: "Error in creating Report"
+                message: "Error in creating Report, Patient ID or status incorrect"
             });
         }
         return res.status(200).json({
