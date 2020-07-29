@@ -23,6 +23,7 @@ This API can perform the following functions :-
 - Generate Patient report using JWT.
 - View all reports of a particular patient based on patient id.
 - View all reports based on a particular report status.
+- Unit Tests for the patient routes (/patients/register, /patients/:id/create_report, /patients/:id/all_reports)
 
 #### Technologies
 
@@ -58,6 +59,10 @@ This API can perform the following functions :-
 ##### Public Routes
 5. /patients/:id/all_reports - Returns all the reports of a particular patient(identified by id).
 6. /reports/:status - Returns all the reports with a particular status.
+
+#### Testing the routes
+- Run command 'npm test' in terminal while in the project folder's directory to launch the tests and see the output [Mocha is used for unit testing]
+- 10 Unit tests will bee conducted to check if the routes are functioning properly
 
 ---
 
