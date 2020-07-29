@@ -146,7 +146,7 @@ describe('Patients', () => {
 
         // Incorrect Status
         it('should give an error in creating report due to incorrect status', (done) => {
-            let patient = new Patient({phone: '0123456789', name: 'patient', doctorName: testDoc._id});
+            let patient = new Patient({ phone: '0123456789', name: 'patient', doctorName: testDoc._id });
             patient.save((err, patient) => {
                 chai.request(server)
                     .post(`/api/v1/patients/${patient.id}/create_report`)
@@ -164,9 +164,10 @@ describe('Patients', () => {
             });
         });
 
+
         // Report created successfully
         it('should generate report', (done) => {
-            let patient = new Patient({phone: '0123456789', name: 'patient', doctorName: testDoc._id});
+            let patient = new Patient({ phone: '0123456789', name: 'patient', doctorName: testDoc._id });
             patient.save((err, patient) => {
                 chai.request(server)
                     .post(`/api/v1/patients/${patient._id}/create_report`)
@@ -185,6 +186,51 @@ describe('Patients', () => {
                         res.body.info.status.should.be.eql('Positive-Admit');
                         done();
                     });
+            });
+        });
+    });
+
+    // Testing for /patients/:id/all_reports route :-
+    describe('/GET patients/:id/all_reports', () => {
+
+        // Incorrect Patient ID
+        it('should return an internal server error while fetching reports due to wrong patient id', (done) => {
+            chai.request(server)
+                .get(`/api/v1/patients/wrongid/all_reports`)
+                .end((err, res) => {
+                    // console.log(res.body);
+                    res.should.have.status(500);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message');
+                    res.body.message.should.be.eql('Internal Server Error');
+                    done();
+                });
+        });
+
+        // Get all reports of a patient when correct patient id is passed
+        it('should return reports of patient', (done) => {
+            let patient = new Patient({ phone: '0123456789', name: 'patient', doctorName: testDoc._id });
+            patient.save((err, patient) => {
+                let report = new Report({ status: 'Positive-Admit', doctorName: testDoc._id, patientName: patient._id });
+                report.save((err, report) => {
+                    chai.request(server)
+                        .get(`/api/v1/patients/${patient._id}/all_reports`)
+                        .end((err, res) => {
+                            res.should.have.status(200);
+                            res.body.should.have.property('message');
+                            res.body.should.have.property('info');
+                            res.body.message.should.be.eql('All reports of patient displayed');
+                            res.body.info.should.be.a('array');
+                            res.body.info.length.should.be.eql(1);
+                            res.body.info[0].should.have.property('status');
+                            res.body.info[0].should.have.property('doctorName');
+                            res.body.info[0].doctorName.should.be.a('object');
+                            res.body.info[0].should.have.property('patientName');
+                            res.body.info[0].patientName.should.be.a('object');
+                            res.body.info[0].status.should.be.eql("Positive-Admit");
+                            done();
+                        });
+                });
             });
         });
     });
